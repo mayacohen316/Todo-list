@@ -1,0 +1,21 @@
+
+
+  .todo-item {
+    border: none;
+    border-radius: 0.25rem;
+    list-style-type: none;
+  }
+  
+  .todo-item .form-check-input {
+    margin-top: 0.3rem;
+    margin-left: -1.25rem;
+  }
+  
+  .todo-item .badge {
+    font-size: 0.8rem;
+  }
+  
+  .todo-item .btn-sm {
+    margin-top: -0.3rem;
+  }
+  
