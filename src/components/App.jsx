@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-    <>
+    < >
       <h1 className="text-center my-4">To-Do List</h1>
       <Button className="newToDoButton" variant="primary" onClick={() => setModalShow(true)}>
         New To-Do
