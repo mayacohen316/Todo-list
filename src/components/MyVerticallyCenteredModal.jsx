@@ -1,14 +1,15 @@
 // MyVerticallyCenteredModal.jsx
-import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function MyVerticallyCenteredModal(props) {
-  const [newTodoText, setNewTodoText] = useState('');
-  const [newTodoCategory, setNewTodoCategory] = useState('General');
-  const [newTodoImportance, setNewTodoImportance] = useState('Medium');
-  const [newTodoNotes, setNewTodoNotes] = useState('');
+  const [newTodoText, setNewTodoText] = useState("");
+  const [newTodoCategory, setNewTodoCategory] = useState("General");
+  const [newTodoImportance, setNewTodoImportance] = useState("Medium");
+  const [newTodoDueDate, setNewTodoDueDate] = useState("");
+  const [newTodoNotes, setNewTodoNotes] = useState("");
 
   const handleAddTodo = (event) => {
     event.preventDefault();
@@ -19,13 +20,14 @@ function MyVerticallyCenteredModal(props) {
       creationDate: new Date().toISOString(),
       category: newTodoCategory,
       importance: newTodoImportance,
-      notes: newTodoNotes
+      dueDate: newTodoDueDate,
+      notes: newTodoNotes,
     };
     props.onAddTodo(newTodo);
-    setNewTodoText('');
-    setNewTodoCategory('General');
-    setNewTodoImportance('Medium');
-    setNewTodoNotes('');
+    setNewTodoText("");
+    setNewTodoCategory("General");
+    setNewTodoImportance("Medium");
+    setNewTodoNotes("");
     props.onHide();
   };
 
@@ -74,6 +76,15 @@ function MyVerticallyCenteredModal(props) {
               <option value="Medium">Medium</option>
               <option value="Low">Low</option>
             </Form.Select>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="newTodoDueDate">
+            <Form.Label>Due Date</Form.Label>
+            <Form.Control
+              type="date"
+              value={newTodoDueDate}
+              onChange={(e) => setNewTodoDueDate(e.target.value)}
+              placeholder="Select due date"
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="newTodoNotes">
             <Form.Label>Notes</Form.Label>

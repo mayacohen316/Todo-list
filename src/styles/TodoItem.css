@@ -1,21 +1,63 @@
+.todo-item {
+  border: none;
+  border-radius: 0.25rem;
+  list-style-type: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+}
 
+.todo-item .form-check {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
 
-  .todo-item {
-    border: none;
-    border-radius: 0.25rem;
-    list-style-type: none;
-  }
-  
-  .todo-item .form-check-input {
-    margin-top: 0.3rem;
-    margin-left: -1.25rem;
-  }
-  
-  .todo-item .badge {
-    font-size: 0.8rem;
-  }
-  
-  .todo-item .btn-sm {
-    margin-top: -0.3rem;
-  }
-  
+.todo-item .form-check-input {
+  margin-top: 0;
+  margin-right: 0.5rem;
+}
+
+.todo-item .badge {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.todo-item .btn-sm {
+  margin-left: 0.5rem;
+}
+
+.completed-text {
+  position: relative;
+  text-decoration: line-through;
+  color: #ccc; /* Grayed out text for completed items */
+}
+
+.completed-line {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  height: 2px;
+  background-color: red; /* Line color */
+  transition: width 0.5s ease-in-out; /* Smooth transition for the width */
+}
+
+/* Add a class for the line when the todo is not completed */
+.not-completed-line {
+  width: 0; /* Hide the line when the todo is not completed */
+}
+
+.todo-text-container {
+  position: relative;
+  display: inline-block; /* Makes the container only as wide as the text */
+}
+
+.todo-due-date {
+  display: block;
+  color: #ccc; /* Light gray */
+  font-size: 0.8rem;
+}

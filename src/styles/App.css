@@ -1,23 +1,63 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.todo-item {
+  border: none;
+  border-radius: 0.25rem;
+  list-style-type: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.card {
-  padding: 2em;
+.todo-item .form-check-input {
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
 }
 
-.read-the-docs {
-  color: #888;
+.todo-item .badge {
+  font-size: 0.8rem;
 }
 
-.todo-list-container {
-  max-width: 600px;
-  margin: auto;
+.todo-item .btn-sm {
+  margin-top: -0.3rem;
 }
 
-.newToDoButton {
-  margin-bottom: 30px;
+.completed-text {
+  position: relative;
+  text-decoration: line-through;
+  color: #ccc; /* Grayed out text for completed items */
+}
+
+.completed-line {
+  content: '';
+  position: absolute;
+  bottom: 35%;
+  left: 0;
+  height: 2px;
+  background-color: red; /* Line color */
+}
+
+.animate-forwards {
+  width: 0;
+  animation: drawLine 0.5s ease-in-out forwards;
+}
+
+.animate-backwards {
+  width: 100%;
+  animation: reverseDrawLine 0.5s ease-in-out forwards;
+}
+
+@keyframes drawLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes reverseDrawLine {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
 }
