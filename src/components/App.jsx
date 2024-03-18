@@ -4,7 +4,7 @@ import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/App.css";
-import Sidebar from "./SideNavBar";
+import Sidebar from "./SideNavBar"
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -31,11 +31,10 @@ function App() {
   };
 
   return (
-    <div className={`app ${isSidebarOpen ? "sidebar-open" : ""}`}>
+    <div className={`app-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
       <Sidebar isOpen={isSidebarOpen} closeSidebar={toggleSidebar} />
 
-      {/* This will cover the sidebar when open */}
-      <div className="main-content-wrapper">
+      <div className="main-content">
         <div
           className={`hamburger ${isSidebarOpen ? "hide" : ""}`}
           onClick={toggleSidebar}
@@ -43,29 +42,24 @@ function App() {
           ☰
         </div>
 
-        <Sidebar isOpen={isSidebarOpen} closeSidebar={toggleSidebar} />
-
-        <div className={`main ${isSidebarOpen ? "shrink" : ""}`}>
-          {/* The rest of your content */}
-          <h1 className="text-center my-4">To-Do List</h1>
-          <Button
-            variant="primary"
-            onClick={() => setModalShow(true)}
-            className="my-3"
-          >
-            New To-Do
-          </Button>
-          <MyVerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            onAddTodo={addTodo}
-          />
-          <TodoList
-            todos={todos}
-            onRemoveTodo={removeTodo}
-            onUpdateTodo={updateTodo}
-          />
-        </div>
+        <h1 className="text-center my-4">To-Do List</h1>
+        <Button
+          variant="primary"
+          onClick={() => setModalShow(true)}
+          className="my-3"
+        >
+          New To-Do
+        </Button>
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          onAddTodo={addTodo}
+        />
+        <TodoList
+          todos={todos}
+          onRemoveTodo={removeTodo}
+          onUpdateTodo={updateTodo}
+        />
       </div>
     </div>
   );
