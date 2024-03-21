@@ -20,7 +20,7 @@ function TodoItem({ todo, onRemoveTodo, onUpdateTodo }) {
   };
 
   return (
-    <Card className="todo-item mb-3 shadow-sm">
+    <Card className="todo-item mb-2 shadow-sm">
       <Card.Body>
         <Form.Check
           type="checkbox"

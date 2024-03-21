@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Sidebar.css'; // Adjust the path if necessary
-import SplineAnimation from './SplineAnimation';
+import Spline from '@splinetool/react-spline';
+
 
 function SideNavBar({ isOpen, closeSidebar }) {
   return (
@@ -16,7 +17,7 @@ function SideNavBar({ isOpen, closeSidebar }) {
         <a href="#">Analytics</a>
         <a href="#">Settings</a>
       </div>
-      <SplineAnimation /> 
+      <Spline scene="https://prod.spline.design/HiNaeuRSL5ePkjFc/scene.splinecode" />
       <div className="sidebar-footer">
         <p>Good Consistency</p>
       </div>

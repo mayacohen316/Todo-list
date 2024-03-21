@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function MyVerticallyCenteredModal(props) {
+function MyVerticallyCenteredModal({ show, onHide, onAddTodo }) {
   const [newTodoText, setNewTodoText] = useState("");
   const [newTodoCategory, setNewTodoCategory] = useState("General");
   const [newTodoImportance, setNewTodoImportance] = useState("Medium");
@@ -23,17 +23,19 @@ function MyVerticallyCenteredModal(props) {
       dueDate: newTodoDueDate,
       notes: newTodoNotes,
     };
-    props.onAddTodo(newTodo);
+    onAddTodo(newTodo);
     setNewTodoText("");
     setNewTodoCategory("General");
     setNewTodoImportance("Medium");
+    setNewTodoDueDate("");
     setNewTodoNotes("");
-    props.onHide();
+    onHide();
   };
 
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered

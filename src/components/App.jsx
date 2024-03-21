@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import TodoList from "./TodoList";
 import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/App.css";
-import Sidebar from "./SideNavBar"
+import Sidebar from "./SideNavBar";
+import Categories from "./Categories";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -12,7 +13,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const addTodo = (newTodo) => {
-    setTodos([...todos, newTodo]);
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
   const removeTodo = (id) => {
@@ -30,6 +31,25 @@ function App() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const categories = useMemo(() => {
+    const categoryMap = {};
+
+    todos.forEach((todo) => {
+      if (!categoryMap[todo.category]) {
+        categoryMap[todo.category] = { totalTasks: 0, completedTasks: 0 };
+      }
+      categoryMap[todo.category].totalTasks += 1;
+      if (todo.completed) {
+        categoryMap[todo.category].completedTasks += 1;
+      }
+    });
+
+    return Object.keys(categoryMap).map((name) => ({
+      name,
+      ...categoryMap[name],
+    }));
+  }, [todos]);
+
   return (
     <div className={`app-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
       <Sidebar isOpen={isSidebarOpen} closeSidebar={toggleSidebar} />
@@ -42,7 +62,10 @@ function App() {
           ☰
         </div>
 
-        <h1 className="text-center my-4">To-Do List</h1>
+        <h1 className="text-center my-4 welcome-header">What's up, Dani!</h1>
+
+        <Categories categories={categories} />
+
         <Button
           variant="primary"
           onClick={() => setModalShow(true)}
@@ -50,10 +73,13 @@ function App() {
         >
           New To-Do
         </Button>
+
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
-          onAddTodo={addTodo}
+          onAddTodo={(newTodo) => {
+            addTodo(newTodo);
+          }}
         />
         <TodoList
           todos={todos}
