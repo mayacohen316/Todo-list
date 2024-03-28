@@ -12,10 +12,9 @@ function SideNavBar({ isOpen, closeSidebar }) {
         <h3>Joy Mitchell</h3>
       </div>
       <div className="sidebar-menu">
-        <a href="#">Templates</a>
-        <a href="#">Categories</a>
-        <a href="#">Analytics</a>
-        <a href="#">Settings</a>
+        <a href="#">היום שלי</a>
+        <a href="#">חשוב</a>
+        <a href="#">סטטיסטיקה</a>
       </div>
       <Spline scene="https://prod.spline.design/HiNaeuRSL5ePkjFc/scene.splinecode" />
       <div className="sidebar-footer">

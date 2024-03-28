@@ -11,12 +11,39 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const [categoriesData, setCategoriesData] = useState([
+    { name: "General", tasksCount: 0 },
+    { name: "Work", tasksCount: 0 },
+    { name: "Personal", tasksCount: 0 },
+  ]);
 
   const addTodo = (newTodo) => {
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    setTodos([...todos, newTodo]);
+
+    const updatedCategories = categoriesData.map((category) => {
+      if (category.name === newTodo.category) {
+        return { ...category, tasksCount: category.tasksCount + 1 };
+      }
+      return category;
+    });
+    setCategoriesData(updatedCategories);
   };
 
   const removeTodo = (id) => {
+    // Find the todo to be removed
+    const todoToRemove = todos.find((todo) => todo.id === id);
+    if (todoToRemove) {
+      // Update categoriesData to decrement the tasksCount for the removed todo's category
+      const updatedCategories = categoriesData.map((category) => {
+        if (category.name === todoToRemove.category) {
+          return { ...category, tasksCount: category.tasksCount - 1 };
+        }
+        return category;
+      });
+      setCategoriesData(updatedCategories);
+    }
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
@@ -31,24 +58,10 @@ function App() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const categories = useMemo(() => {
-    const categoryMap = {};
+  const filteredTodos = todos.filter((todo) =>
+  activeCategory === 'All' || todo.category === activeCategory
+);
 
-    todos.forEach((todo) => {
-      if (!categoryMap[todo.category]) {
-        categoryMap[todo.category] = { totalTasks: 0, completedTasks: 0 };
-      }
-      categoryMap[todo.category].totalTasks += 1;
-      if (todo.completed) {
-        categoryMap[todo.category].completedTasks += 1;
-      }
-    });
-
-    return Object.keys(categoryMap).map((name) => ({
-      name,
-      ...categoryMap[name],
-    }));
-  }, [todos]);
 
   return (
     <div className={`app-container ${isSidebarOpen ? "sidebar-open" : ""}`}>
@@ -64,7 +77,12 @@ function App() {
 
         <h1 className="text-center my-4 welcome-header">What's up, Dani!</h1>
 
-        <Categories categories={categories} />
+        <Categories
+          categories={categoriesData}
+          todos={todos}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
 
         <Button
           variant="primary"
@@ -77,12 +95,11 @@ function App() {
         <MyVerticallyCenteredModal
           show={modalShow}
           onHide={() => setModalShow(false)}
-          onAddTodo={(newTodo) => {
-            addTodo(newTodo);
-          }}
+          categories={categoriesData}
+          onAddTodo={addTodo}
         />
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
           onRemoveTodo={removeTodo}
           onUpdateTodo={updateTodo}
         />

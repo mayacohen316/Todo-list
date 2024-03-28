@@ -1,12 +1,10 @@
 import React from 'react';
 import ProgressBar from '@ramonak/react-progress-bar';
 
-export default function CategoryProgress({ completed, total }) {
-  const completionPercentage = total > 0 ? (completed / total) * 100 : 0;
-
+export default function CategoryProgress({ completed }) {
   return (
     <ProgressBar
-      completed={completionPercentage.toFixed(2)}
+      completed={completed}
       bgColor="#6200ee"
       height="10px"
       isLabelVisible={false}

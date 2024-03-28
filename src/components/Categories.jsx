@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
-import Category from './Category'; 
-import '../styles/Categories.css'; 
+import React, { useState } from "react";
+import Category from "./Category";
+import colorPalette from "./ColorPalette";
+import "../styles/Categories.css";
 
-const Categories = () => {
-  const categoriesData = [
-    { title: 'Business', tasksCount: 40 },
-    { title: 'Personal', tasksCount: 18 },
-  ];
-
-  const [activeCategory, setActiveCategory] = useState(categoriesData[0].title);
-
+const Categories = ({
+  categories,
+  todos,
+  activeCategory,
+  setActiveCategory,
+}) => {
   return (
     <div className="categories-container">
-      {categoriesData.map((category, index) => (
-        <Category
-          key={index}
-          title={category.title}
-          tasksCount={category.tasksCount}
-          active={activeCategory === category.title}
-          onCategoryClick={() => setActiveCategory(category.title)}
-        />
-      ))}
+      {categories.map((category, index) => {
+        const color = colorPalette[index % colorPalette.length]; 
+
+        const totalTasks = todos.filter(
+          (todo) => todo.category === category.name
+        ).length;
+        const completedTasks = todos.filter(
+          (todo) => todo.category === category.name && todo.completed
+        ).length;
+        const completionPercentage =
+          totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+        return (
+          <Category
+            key={category.name}
+            title={category.name}
+            tasksCount={totalTasks}
+            completionPercentage={completionPercentage}
+            active={activeCategory === category.name}
+            color={color}
+            onCategoryClick={() => setActiveCategory(category.name)}
+          />
+        );
+      })}
     </div>
   );
 };

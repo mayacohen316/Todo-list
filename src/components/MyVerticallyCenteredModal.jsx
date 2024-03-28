@@ -4,9 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function MyVerticallyCenteredModal({ show, onHide, onAddTodo }) {
+function MyVerticallyCenteredModal({ show, onHide, onAddTodo, categories }) {
   const [newTodoText, setNewTodoText] = useState("");
-  const [newTodoCategory, setNewTodoCategory] = useState("General");
+  const [newTodoCategory, setNewTodoCategory] = useState(categories[0].name);
   const [newTodoImportance, setNewTodoImportance] = useState("Medium");
   const [newTodoDueDate, setNewTodoDueDate] = useState("");
   const [newTodoNotes, setNewTodoNotes] = useState("");
@@ -62,10 +62,11 @@ function MyVerticallyCenteredModal({ show, onHide, onAddTodo }) {
               value={newTodoCategory}
               onChange={(e) => setNewTodoCategory(e.target.value)}
             >
-              <option value="General">General</option>
-              <option value="Work">Work</option>
-              <option value="Personal">Personal</option>
-              {/* Add more categories as needed */}
+              {categories.map((category) => (
+                <option key={category.name} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="newTodoImportance">
